@@ -1,0 +1,99 @@
+{
+    "description": "Autotest configuration file for dependency tree detection validation",
+    "version": 1.5,
+    "base_config": {
+        "validate_scan_output": true,
+        "_comment_validate_scan_output": "Whether to validate the scan output/exit code. Options: true | false. Default: true",
+        "scan_output": {
+            "security_scan_report_conclusion": "failure",
+            "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: 'success' | 'failure'. This validates the security scan result status. If not provided, this check will not be performed.",
+            "total_libs_scanned": {
+                "eq": 2100
+            },
+            "_comment_total_libs_scanned": "Expected number of libraries scanned with comparison operator. Validates that the scan processed libraries."
+        },
+        "validate_dependency_tree": true,
+        "_comment_validate_dependency_tree": "Whether to validate the dependency tree. Options: true | false. Default: true",
+        "dependency_tree": {
+            "check_dependency_tree_detection_status": true,
+            "_comment_check_dependency_tree_detection_status": "Whether to check if dependency tree was successfully detected. Options: true | false. Default: true",
+            "expected_total_dependencies_number": {
+                "eq": 3957
+            },
+            "expected_direct_dependencies_number": {
+                "eq": 61
+            },
+            "expected_transitive_dependencies_number": {
+                "eq": 3896
+            },
+            "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
+            "direct_dependencies_names_list": {
+                "eq": [
+                    "contextlib2-0.6.0-py2.py3-none-any.whl",
+                    "pep517-0.8.2-py2.py3-none-any.whl",
+                    "setuptools-44.0.0-py2.py3-none-any.whl",
+                    "distlib-0.3.0-py2.py3-none-any.whl",
+                    "pip-20.0.2-py2.py3-none-any.whl",
+                    "certifi-2019.11.28-py2.py3-none-any.whl",
+                    "@plone/volto-17.0.0-alpha.7.tgz",
+                    "progress-1.5-py2.py3-none-any.whl",
+                    "pkg_resources-0.0.0-py2.py3-none-any.whl",
+                    "chardet-3.0.4-py2.py3-none-any.whl",
+                    "colorama-0.4.3-py2.py3-none-any.whl",
+                    "toml-0.10.0-py2.py3-none-any.whl",
+                    "lockfile-0.12.2-py2.py3-none-any.whl",
+                    "plone-6.0.15-py3-none-any.whl",
+                    "urllib3-1.25.8-py2.py3-none-any.whl",
+                    "six-1.14.0-py2.py3-none-any.whl",
+                    "retrying-1.3.3-py2.py3-none-any.whl",
+                    "plone_api-2.5.3-py3-none-any.whl",
+                    "packaging-20.3-py2.py3-none-any.whl",
+                    "distro-1.4.0-py2.py3-none-any.whl",
+                    "prettyconf-2.3.0-py3-none-any.whl",
+                    "pyparsing-2.4.6-py2.py3-none-any.whl",
+                    "intranet_interagi-0.1.0.tgz",
+                    "idna-2.8-py2.py3-none-any.whl",
+                    "appdirs-1.4.3-py2.py3-none-any.whl",
+                    "cachecontrol-0.12.6-py2.py3-none-any.whl",
+                    "html5lib-1.0.1-py2.py3-none-any.whl",
+                    "webencodings-0.5.1-py2.py3-none-any.whl",
+                    "requests-2.32.5-py3-none-any.whl",
+                    "msgpack-0.6.2-py2.py3-none-any.whl",
+                    "collective.bookmarks-1.1.tar.gz",
+                    "ipaddr-2.2.0-py2.py3-none-any.whl",
+                    "requests-2.22.0-py2.py3-none-any.whl",
+                    "wheel-0.34.2-py2.py3-none-any.whl"
+                ]
+            },
+            "_comment_dependencies_names_list": "Optional. Check specific libraries in direct dependencies. Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+            "validate_agent_versions": true,
+            "expected_agent_version": "",
+            "expected_plugin_version": "",
+            "_comment_agent_versions": "Optional. Expected agent and plugin versions. If not provided, this check will not be performed."
+        },
+        "validate_vulnerabilities_table": true,
+        "_comment_validate_vulnerabilities_table": "Whether to validate the vulnerabilities table. Options: true | false. Default: true",
+        "vulnerabilities_table": {
+            "check_vulnerabilities_table_structure": true,
+            "expected_total_vulnerabilities_number": {
+                "gte": 0
+            },
+            "vulnerabilities_ids_list": {
+                "contains": []
+            },
+            "_comment_ids_names_list": "Optional. Check specific libs ids (WS-2018-0111, CVE-2021-44906). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+            "vulnerabilities_names_list": {
+                "contains": []
+            },
+            "_comment_vulnerabilities_names_list": "Optional. Check specific libs names (minimist-0.0.8.tgz). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed."
+        },
+        "validate_scanner_logs": true,
+        "_comment_validate_scanner_logs": "Whether to validate scanner logs. Options: true | false. Default: false",
+        "logs": {
+            "check_scanner_logs": true,
+            "_comment_check_scanner_logs": "Whether to check scanner logs and attach them to Report Portal. Options: true | false. Default: true",
+            "expected_log_lines": [],
+            "_comment_expected_log_lines": "Optional. List of log lines to validate. Each entry should have an 'operator' (eq or regex) and 'value' (string or regex pattern). Example: [{'operator': 'eq', 'value': 'Python version: 3.11'}, {'operator': 'regex', 'value': 'Python version: \\d+\\.\\d+'}]. If not provided, only log attachment will be performed."
+        }
+    }
+}
